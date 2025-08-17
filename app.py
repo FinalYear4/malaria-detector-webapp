@@ -5,8 +5,6 @@ import base64
 import logging
 import cv2
 import numpy as np
-import requests
-from tqdm import tqdm
 
 import torch
 import torch.nn as nn
@@ -25,14 +23,9 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 MODEL_CHECKPOINT_FILENAME = "best_malaria_classifier_checkpoint.pth"
 MODEL_PATH = os.path.join(APP_ROOT, MODEL_CHECKPOINT_FILENAME)
 
-# !!! CRITICAL: PASTE YOUR MODEL'S DIRECT DOWNLOAD URL HERE !!!
-# This is the URL you created from the Google Drive link, ending in your file ID.
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1M9TdxRU3DvrwsaRaEZXngwNxzqUzOISY"
-
 IMAGE_SIZE = 384
-# For production servers without a GPU, it's safer to default to CPU.
-# Render's free tier does not have a GPU.
-DEVICE = torch.device("cpu") # Forcing CPU for deployment compatibility
+# For production servers like Render's free tier, default to CPU.
+DEVICE = torch.device("cpu")
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -62,40 +55,6 @@ class MalariaSpeciesClassifier(nn.Module):
         output = self.classifier_head(pooled_features)
         return output
 
-# --- Deployment Utility Functions ---
-def download_model_if_needed():
-    """Checks if model file exists on the server, downloads it if not."""
-    if not os.path.exists(MODEL_PATH):
-        logging.info(f"Model checkpoint not found at {MODEL_PATH}. Downloading from URL...")
-        try:
-            response = requests.get(MODEL_URL, stream=True)
-            response.raise_for_status()  # Raise an exception for bad status codes (like 404)
-            total_size = int(response.headers.get('content-length', 0))
-
-            with open(MODEL_PATH, 'wb') as file, tqdm(
-                desc="Downloading Model Checkpoint",
-                total=total_size,
-                unit='iB',
-                unit_scale=True,
-                unit_divisor=1024,
-            ) as progress_bar:
-                for data in response.iter_content(chunk_size=1024):
-                    file.write(data)
-                    progress_bar.update(len(data))
-            
-            if total_size != 0 and progress_bar.n != total_size:
-                logging.error("ERROR: Model download failed (incomplete).")
-                return False
-
-            logging.info("Model checkpoint downloaded successfully.")
-            return True
-        except Exception as e:
-            logging.error(f"Failed to download model checkpoint: {e}", exc_info=True)
-            return False
-    else:
-        logging.info("Model checkpoint already exists. Skipping download.")
-        return True
-
 # --- Model Loading Function ---
 def load_model_from_checkpoint():
     global model, class_names, classwise_thresholds, target_layer_for_grad_cam
@@ -105,11 +64,12 @@ def load_model_from_checkpoint():
 
     logging.info(f"Attempting to load checkpoint from {MODEL_PATH}...")
     if not os.path.exists(MODEL_PATH):
-        raise FileNotFoundError(f"Checkpoint file not found at {MODEL_PATH}.")
+        # This error is critical in production. If Git LFS worked, the file should be here.
+        raise FileNotFoundError(f"Checkpoint file not found at {MODEL_PATH}. Ensure Git LFS is configured correctly and the file is tracked.")
 
     try:
-        # Load checkpoint to CPU first, which is safer and required for deployment server.
-        checkpoint = torch.load(MODEL_PATH, map_location=torch.device('cpu'), weights_only=False)
+        # Load checkpoint to CPU, as DEVICE is set to "cpu" for server compatibility.
+        checkpoint = torch.load(MODEL_PATH, map_location=DEVICE, weights_only=False)
         class_names = checkpoint['class_names']
         num_classes = checkpoint['num_classes']
         classwise_thresholds = checkpoint['classwise_thresholds']
@@ -124,7 +84,7 @@ def load_model_from_checkpoint():
         segmentation_encoder = seg_model_full.encoder
         model = MalariaSpeciesClassifier(segmentation_encoder, num_classes)
         model.load_state_dict(model_state_dict)
-        model.to(DEVICE)  # This will move to CPU as DEVICE is set to "cpu"
+        model.to(DEVICE)
         model.eval()
         logging.info(f"Model loaded to {DEVICE} and set to evaluation mode.")
 
@@ -187,14 +147,11 @@ app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # --- SERVER STARTUP LOGIC ---
-# This block runs once when the server process starts (e.g., when Gunicorn launches)
-if download_model_if_needed():
-    try:
-        load_model_from_checkpoint()
-    except Exception as e:
-        logging.critical(f"FATAL: Could not load the model AFTER download. The application will not be able to serve predictions. Error: {e}", exc_info=True)
-else:
-    logging.critical("FATAL: Could not DOWNLOAD the model. The application will not be able to serve predictions.")
+# This block runs once when the Gunicorn server process starts.
+try:
+    load_model_from_checkpoint()
+except Exception as e:
+    logging.critical(f"FATAL: Could not load the model checkpoint at startup. The application will not be able to serve predictions. Error: {e}", exc_info=True)
 # --- END SERVER STARTUP LOGIC ---
 
 @app.route('/', methods=['GET'])
@@ -275,9 +232,8 @@ def faq_page():
 def contact_page():
     return render_template('contact.html')
 
-# This block is mainly for local development. Gunicorn will not use it.
+# This block is used for local development and will not be used by Gunicorn on Render.
 if __name__ == '__main__':
     logging.info("Starting Malaria Species Predictor Flask app for local development...")
-    # Waitress is a good production-ready server for Windows development.
     from waitress import serve
     serve(app, host="0.0.0.0", port=5000)

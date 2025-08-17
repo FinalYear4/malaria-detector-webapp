@@ -5,8 +5,6 @@ venv/
 __pycache__/
 *.pyc
 
-# Large model files
-*.pth
 
 # IDE files
 .idea/
