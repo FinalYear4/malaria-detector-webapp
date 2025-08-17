@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaria Species Predictor</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- SINGLE CORRECT HEADER SECTION -->
+        <header class="page-header">
+            <div class="logo-and-nav">
+                <a href="{{ url_for('index') }}" class="header-logo-link">
+                    <h1><i class="fas fa-microscope"></i> Malaria Species Detector</h1>
+                </a>
+                <nav class="main-nav">
+                    <a href="{{ url_for('index') }}" class="nav-button active">Home</a>
+                    <a href="{{ url_for('tutorials_page') }}" class="nav-button">Tutorials</a>
+                    <a href="{{ url_for('faq_page') }}" class="nav-button">FAQ</a>
+                    <a href="{{ url_for('contact_page') }}" class="nav-button">Contact</a>
+                </nav>
+            </div>
+            <!-- This is the single, correct subheading for the page, below the nav bar -->
+            <p class="subheading">Upload a blood smear image to predict the parasite species.</p>
+        </header>
+        <!-- END OF SINGLE CORRECT HEADER SECTION -->
+
+        <!-- UPLOAD SECTION - This is correct -->
+        <div class="upload-section">
+            <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+                <label for="file-upload" class="custom-file-upload">
+                    <i class="fas fa-cloud-upload-alt"></i> Choose Image
+                </label>
+                <input id="file-upload" type="file" name="file" accept="image/png, image/jpeg, image/jpg" required onchange="displayFileName()">
+                <span id="file-name-display">No file chosen</span>
+                <input type="submit" value="Analyze Image" class="submit-button">
+            </form>
+            {% if error_message %}
+                <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+        </div>
+
+        <!-- SLIDESHOW SECTION - This is correct -->
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img src="{{ url_for('static', filename='images/microscope_banner.jpg') }}" alt="Microscope in a lab setting 1">
+            </div>
+            <div class="mySlides fade">
+                <img src="{{ url_for('static', filename='images/microscope_banner_2.jpg') }}" alt="Microscope in a lab setting 2">
+            </div>
+            <a class="prev" onclick="plusManualSlides(-1)">❮</a> <!-- Ensure JS function is plusManualSlides -->
+            <a class="next" onclick="plusManualSlides(1)">❯</a> <!-- Ensure JS function is plusManualSlides -->
+        </div>
+        <br>
+        <div style="text-align:center">
+            <span class="dot" onclick="currentManualSlide(1)"></span> <!-- Ensure JS function is currentManualSlide -->
+            <span class="dot" onclick="currentManualSlide(2)"></span> <!-- Ensure JS function is currentManualSlide -->
+        </div>
+
+        <!-- NEW INFORMATIVE TEXT SECTION - This looks good -->
+        <div class="info-text page-content"> <!-- Added page-content for consistent styling if needed -->
+            <h2><i class="fas fa-info-circle"></i> About Human Malaria Parasite Species</h2>
+            <p><em>(Information summarized from CDC, WHO, and NCBI sources listed below)</em></p>
+            <ul>
+                <li>
+                    <strong><em>Plasmodium falciparum</em>:</strong>
+                    <ul>
+                        <li>Found worldwide in tropical and subtropical areas, especially prevalent in Africa. (CDC)</li>
+                        <li>Can cause severe, life-threatening malaria (cerebral malaria, severe anemia, kidney failure) because it infects red blood cells (RBCs) of all ages, leading to high parasite burdens. (CDC, WHO)</li>
+                        <li>Microscopically, multiple ring-form trophozoites per RBC and crescent-shaped (banana-shaped) gametocytes are characteristic. (CDC DPDx)</li>
+                        <li>Uncomplicated *P. falciparum* malaria is generally treated with Artemisinin-based Combination Therapies (ACTs). Drug resistance is a significant global health concern, necessitating ongoing surveillance. (WHO, CDC Drug Resistance)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong><em>Plasmodium malariae</em>:</strong>
+                    <ul>
+                        <li>Has a wide but scattered distribution globally. (CDC DPDx)</li>
+                        <li>Typically causes a less severe form of malaria, which can persist as a chronic, low-level infection for many years if untreated. (CDC, NCBI)</li>
+                        <li>Infects primarily mature RBCs. Characteristic microscopic features include "band-form" trophozoites across the RBC and "rosette-form" schizonts. (CDC DPDx)</li>
+                        <li>Historically, Chloroquine has been effective for *P. malariae* where sensitive. (General knowledge, confirm with local guidelines)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong><em>Plasmodium ovale</em>:</strong>
+                    <ul>
+                        <li>Consists of two subspecies (*P. ovale curtisi* and *P. ovale wallikeri*). Primarily found in sub-Saharan Africa and islands in the western Pacific. (CDC DPDx)</li>
+                        <li>Similar to *P. vivax*, it can form dormant liver stages called hypnozoites, which can cause relapses weeks or months after the initial infection. (CDC, NCBI)</li>
+                        <li>Infects young RBCs (reticulocytes), often causing the infected RBCs to become enlarged and oval-shaped, sometimes with fimbriated (ragged) edges. (CDC DPDx)</li>
+                        <li>Treatment typically involves a drug for the blood-stage infection (e.g., Chloroquine where sensitive, or an ACT) plus a drug like Primaquine to target the liver-stage hypnozoites and prevent relapse. G6PD deficiency testing is crucial before administering primaquine due to risk of hemolysis. (General knowledge, NCBI, confirm with local guidelines)</li>
+                    </ul>
+                </li>
+                 <li>
+                    <strong><em>Plasmodium vivax</em>:</strong>
+                    <ul>
+                        <li>While this tool focuses on the other three, *P. vivax* is geographically the most widespread human malaria parasite but not predominant in Africa. (CDC DPDx)</li>
+                        <li>Also forms hypnozoites leading to relapses. Primarily infects reticulocytes. (CDC, NCBI)</li>
+                        <li>Treatment strategies are similar to *P. ovale*, involving blood-stage treatment and anti-relapse therapy with primaquine (requiring G6PD testing). (General knowledge, NCBI)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>General Notes on Antimalarial Treatment:</h3>
+            <p>
+                The choice of antimalarial drugs depends on several factors, including: (WHO, CDC)
+                <ul>
+                    <li>The *Plasmodium* species causing the infection.</li>
+                    <li>The clinical severity of the illness.</li>
+                    <li>The geographic area where the infection was acquired, due to regional patterns of drug resistance (e.g., Chloroquine resistance in *P. falciparum* is widespread). (CDC Drug Resistance)</li>
+                    <li>Patient factors such as age, pregnancy, and co-morbidities (e.g., G6PD deficiency for primaquine use).</li>
+                </ul>
+                Artemisinin-based Combination Therapies (ACTs) are the recommended first-line treatment for uncomplicated *P. falciparum* malaria in most malaria-endemic areas. (WHO)
+            </p>
+
+            <div class="references-section">
+                <h4>References & Further Reading:</h4>
+                <ul>
+                    <li><a href="https://www.cdc.gov/dpdx/malaria/index.html" target="_blank" rel="noopener noreferrer">CDC - DPDx - Malaria</a></li>
+                    <li><a href="https://www.cdc.gov/malaria/diagnosis_treatment/treatment.html" target="_blank" rel="noopener noreferrer">CDC - Malaria Treatment (U.S.)</a></li>
+                    <li><a href="https://www.who.int/teams/global-malaria-programme/guidelines-for-malaria" target="_blank" rel="noopener noreferrer">WHO - Guidelines for Malaria</a></li>
+                    <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK8584/" target="_blank" rel="noopener noreferrer">NCBI Bookshelf - Malaria: Obstacles and Opportunities</a></li>
+                    <li><a href="https://www.cdc.gov/malaria/php/public-health-strategy/drug-resistance.html" target="_blank" rel="noopener noreferrer">CDC - Drug Resistance in Malaria</a></li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <!-- DISCLAIMER - This is correct -->
+        <div class="disclaimer">
+            <h2><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h2>
+            <p>This is a deep learning powered application intended for <strong>informational and research purposes only</strong>.
+            The predictions made by this model are not a substitute for professional medical advice, diagnosis,
+            or treatment. Always seek the advice of your physician or other qualified health provider with
+            any questions you may have regarding a medical condition.</p>
+
+        </div>
+
+        <!-- FOOTER - This is correct -->
+        <footer>
+            <p>© 2025 Deep Learning Model For Plasmodium Specie Detection. For educational and research use.</p>
+        </footer>
+    </div> <!-- End of .container -->
+
+    <!-- JAVASCRIPT SECTION -->
+    <script>
+        function displayFileName() {
+            const fileInput = document.getElementById('file-upload');
+            const fileNameDisplay = document.getElementById('file-name-display');
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file chosen';
+            }
+        }
+
+        // SLIDESHOW JAVASCRIPT (using the manual control functions)
+        let manualSlideIndex = 1; // Start with the first slide
+        let autoSlideTimeout;
+
+        function showManualSlides(n) {
+            clearTimeout(autoSlideTimeout); // Stop automatic timer when manual control is used
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+
+            if (slides.length === 0) return; // No slides to show
+
+            if (n > slides.length) { manualSlideIndex = 1; }
+            if (n < 1) { manualSlideIndex = slides.length; }
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[manualSlideIndex - 1].style.display = "block";
+            if (dots.length > 0 && dots[manualSlideIndex - 1]) { // Check if dot exists
+                 dots[manualSlideIndex - 1].className += " active";
+            }
+            // Optional: Restart automatic slideshow after a delay if you want it to resume
+            // autoSlideTimeout = setTimeout(startAutoSlides, 7000); // Restart after 7s of inactivity
+        }
+
+        function plusManualSlides(n) {
+            showManualSlides(manualSlideIndex += n);
+        }
+
+        function currentManualSlide(n) {
+            showManualSlides(manualSlideIndex = n);
+        }
+
+        let autoSlideIndexGlobal = 0;
+        function startAutoSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+
+            if (slides.length === 0) return; // No slides to show
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            autoSlideIndexGlobal++;
+            if (autoSlideIndexGlobal > slides.length) {autoSlideIndexGlobal = 1}
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[autoSlideIndexGlobal-1].style.display = "block";
+            if (dots.length > 0 && dots[autoSlideIndexGlobal-1]) { // Check if dot exists
+                dots[autoSlideIndexGlobal-1].className += " active";
+            }
+            
+            manualSlideIndex = autoSlideIndexGlobal; // Sync manual index with auto index
+            autoSlideTimeout = setTimeout(startAutoSlides, 5000); // Change image every 5 seconds
+        }
+        
+        document.addEventListener('DOMContentLoaded', (event) => {
+            displayFileName(); // Call this to initialize file name display if needed
+            if (document.getElementsByClassName("mySlides").length > 0) {
+                showManualSlides(manualSlideIndex); // Show initial slide based on manualSlideIndex (should be 1)
+                startAutoSlides(); // Start automatic slideshow
+            }
+        });
+    </script>
+    <!-- Font Awesome link should ideally be in <head> but works here too -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+</body>
+</html>

@@ -1,0 +1,947 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eef1f5; /* Light grey-blue background */
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 25px 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #007bff; /* Accent color */
+    padding-bottom: 20px;
+}
+
+header h1 {
+    color: #0056b3; /* Darker blue for main title */
+    margin-bottom: 5px;
+    font-size: 2.2em;
+}
+
+.subheading {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.upload-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.custom-file-upload {
+    border: 2px dashed #007bff;
+    display: inline-block;
+    padding: 12px 25px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    color: #007bff;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#file-upload { /* Hide the default file input */
+    display: none;
+}
+
+#file-name-display {
+    display: block;
+    margin-top: 10px;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.submit-button, .button-like {
+    background-color: #28a745; /* Green for positive action */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover, .button-like:hover {
+    background-color: #218838; /* Darker green */
+}
+
+.back-button {
+    background-color: #007bff; /* Blue for navigation */
+}
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+
+.error-message {
+    color: #dc3545; /* Red for errors */
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.disclaimer {
+    background-color: #fff3cd; /* Light yellow for warning */
+    border-left: 5px solid #ffeeba; /* Yellow border */
+    padding: 15px 20px;
+    margin-top: 30px;
+    border-radius: 6px;
+    font-size: 0.95em;
+}
+
+.disclaimer h2 {
+    color: #856404; /* Dark yellow for disclaimer title */
+    margin-top: 0;
+    font-size: 1.3em;
+}
+.disclaimer h2 .fa-exclamation-triangle {
+    margin-right: 8px;
+}
+
+
+/* Result Page Specifics */
+.result-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+.image-display {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+}
+.image-display img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    border: 3px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.image-display h3 {
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+
+.prediction-details {
+    flex: 1.5;
+    min-width: 300px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.prediction-details h2 {
+    color: #0056b3;
+    font-size: 1.6em;
+    margin-top: 0;
+}
+.prediction-details .fa-microscope, .prediction-details .fa-chart-bar {
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.highlight {
+    font-weight: bold;
+    color: #28a745; /* Green for positive result */
+}
+.confidence {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.probabilities-list {
+    list-style: none;
+    padding-left: 0;
+}
+.probabilities-list li {
+    background-color: #e9ecef;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.action-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Styles for References Section */
+.references-section {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+}
+
+.references-section h4 {
+    color: #0056b3;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.references-section ul {
+    list-style: disc; /* Use standard bullets for references */
+    padding-left: 20px; /* Standard indent for bulleted list */
+}
+
+.references-section ul li {
+    margin-bottom: 5px;
+    padding-left: 0; /* Reset padding from info-text if it was inherited */
+    position: static; /* Reset position from info-text */
+}
+.references-section ul li::before {
+    content: ""; /* Remove custom bullet from info-text if inherited */
+    display: none;
+}
+
+.references-section ul li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.references-section ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Adjusting general info-text list for better structure with nested lists */
+.info-text > ul > li { /* Only top-level li in info-text */
+    margin-bottom: 20px; /* Add more space between main parasite entries */
+    padding-left: 0; /* No custom bullet indent for top-level */
+    position: static;
+}
+.info-text > ul > li::before {
+    content: ""; /* No custom bullet for top-level */
+    display: none;
+}
+
+.info-text > ul > li > strong { /* The species name itself */
+    display: block;
+    font-size: 1.15em;
+    margin-bottom: 8px;
+}
+
+.info-text ul ul { /* Nested lists (for characteristics) */
+    list-style: disc;
+    padding-left: 25px; /* Indent for nested characteristics */
+    margin-top: 5px;
+}
+.info-text ul ul li {
+    padding-left: 0;
+    position: static;
+    margin-bottom: 8px;
+}
+.info-text ul ul li::before {
+    content: "";
+    display: none;
+}
+
+/* ... existing CSS rules ... */
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 500px; /* Adjust as needed */
+  position: relative;
+  margin: 30px auto; /* Centered, with top/bottom margin */
+  border-radius: 8px;
+  overflow: hidden; /* Important for the fade effect and rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f0f0f0; /* Light background for the container */
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  text-align: center; /* Center image within slide if it's smaller */
+}
+
+.mySlides img {
+  width: 100%; /* Make image responsive within the slide */
+  height: auto;
+  max-height: 250px; /* Max height for the images, adjust as needed */
+  object-fit: cover; /* Or 'contain' if you don't want cropping */
+  vertical-align: middle; /* Removes bottom space from img */
+  /* No border-radius here if overflow:hidden is on container */
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px; /* Vertically center */
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.3); /* Semi-transparent background */
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Dots indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #007bff; /* Active dot color */
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next {font-size: 11px}
+}
+
+/* Remove the old .theme-image-container and .theme-image styles if they conflict,
+   or adapt them if you had specific global image styling you wanted to keep parts of.
+   For this slideshow, the .mySlides img styling will take precedence.
+*/
+/*
+.theme-image-container { ... }
+.theme-image { ... }
+*/
+/* ... existing CSS rules ... */
+
+/* Header and Navigation Styling */
+.page-header { /* General styling for headers on all pages */
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 20px;
+}
+
+.logo-and-nav {
+    display: flex;
+    justify-content: space-between; /* Puts logo left, nav right */
+    align-items: center; /* Vertically aligns items */
+    margin-bottom: 15px; /* Space below logo/nav bar before subheading */
+}
+
+.header-logo-link {
+    text-decoration: none; /* Removes underline from logo link */
+}
+
+.page-header h1 { /* Style for the main title, now potentially part of logo-and-nav */
+    color: #0056b3;
+    margin: 0; /* Remove default margins if inside flex */
+    font-size: 1.8em; /* Adjust size as needed */
+}
+.page-header h1 .fa-microscope {
+    margin-right: 8px;
+    font-size: 0.9em; /* Slightly smaller icon */
+}
+
+
+.main-nav {
+    /* display: flex; /* uncomment if you want them inline without further styling */
+    /* gap: 10px;  /* uncomment for space between buttons if using flex */
+}
+
+.nav-button {
+    background-color: #6c757d; /* Grey as default */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    text-decoration: none;
+    margin-left: 8px; /* Space between buttons */
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #5a6268; /* Darker grey on hover */
+}
+
+.nav-button.active { /* Style for the active page button */
+    background-color: #007bff; /* Blue for active */
+    font-weight: bold;
+}
+
+.page-content { /* A general class for the main content area of new pages */
+    padding-top: 20px;
+}
+.page-content h2 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 25px;
+}
+.page-content h2 i {
+    margin-right: 8px;
+}
+.page-content p, .page-content ul {
+    font-size: 1.05em;
+    line-height: 1.7;
+}
+.page-content ul {
+    list-style: disc;
+    margin-left: 25px;
+}
+
+
+/* Responsive adjustments for navigation */
+@media (max-width: 768px) {
+    .logo-and-nav {
+        flex-direction: column; /* Stack logo and nav on small screens */
+        align-items: center;
+    }
+    .main-nav {
+        margin-top: 15px; /* Space between logo and nav when stacked */
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap; /* Allow buttons to wrap */
+        justify-content: center; /* Center the buttons */
+    }
+    .nav-button {
+        margin: 5px; /* Adjust margin for wrapped buttons */
+        flex-grow: 1; /* Allow buttons to grow and fill space if needed */
+        text-align: center;
+    }
+    .page-header h1 {
+        font-size: 1.6em;
+    }
+}
+/* ... existing CSS rules ... */
+
+/* Contact Page Specific Styling */
+.contact-page-layout .page-content h2 { /* Override general page-content h2 for contact page */
+    text-align: left; /* Align section titles to the left */
+    margin-bottom: 20px;
+    font-size: 1.6em; /* Slightly smaller for section titles */
+    color: #333; /* Darker for more traditional look */
+}
+
+.contact-page-layout .page-content h2 i {
+    color: #007bff; /* Blue icon color */
+    margin-right: 10px;
+}
+
+
+/* Citation Section */
+.citation-section {
+    background-color: #f8f9fa; /* Light grey background, similar to your image */
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.citation-section h2 {
+    color: #343a40; /* Dark grey for citation title */
+    text-align: center; /* Center the "Citation" title */
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.citation-section p {
+    font-size: 0.95em;
+    line-height: 1.7;
+    color: #495057;
+    text-align: left; /* Align paragraph text to left */
+}
+.citation-section p em {
+    font-style: italic;
+}
+.citation-section p a {
+    color: #0056b3;
+    text-decoration: none;
+}
+.citation-section p a:hover {
+    text-decoration: underline;
+}
+
+
+/* Team Section Styling */
+.team-section {
+    background-color: #003366; /* Dark blue background similar to your image */
+    color: #ffffff; /* White text */
+    padding: 30px 25px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.team-section h2 {
+    text-align: center; /* Center the "Research Team" title */
+    color: #ffffff; /* White title */
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+.team-section h2 i {
+    color: #ffffff; /* White icon */
+}
+
+.team-grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); Adjust minmax as needed */
+    grid-template-columns: repeat(3, 1fr); /* Explicitly 3 columns for the top row */
+    gap: 25px; /* Space between team member blocks */
+}
+
+.team-member {
+    /* background-color: #004080; Slightly lighter blue for member cards, or keep same as parent */
+    padding: 15px;
+    border-radius: 6px;
+    text-align: left; /* Align text within member block to left */
+    /* border: 1px solid #0056b3; Optional border */
+}
+
+.team-member h3 { /* Role like "Principal Investigator" */
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #e0e0e0; /* Light grey for role */
+}
+
+.team-member .member-name {
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #ffffff; /* White name */
+}
+
+.team-member .member-email a {
+    font-size: 0.9em;
+    color: #add8e6; /* Light blue for email, good contrast on dark blue */
+    text-decoration: none;
+}
+
+.team-member .member-email a:hover {
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+/* Specific styling for the last lone member to center it if needed */
+.team-member.lone-member {
+    grid-column: 2 / 3; /* Center it in a 3-column grid if it's the only one in its row */
+    /* Or if you prefer it to align left with the others: */
+    /* grid-column: auto;
+       justify-self: start; (if parent grid uses justify-items: center) */
+    margin-top: 15px; /* Add some space if it's on a new "conceptual" row */
+}
+
+/* Responsive adjustments for team grid */
+@media (max-width: 992px) { /* For tablets and smaller */
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns */
+    }
+    .team-member.lone-member { /* Adjust for 2 columns */
+        grid-column: auto; /* Let it flow naturally */
+        /* If you want it centered in a 2-column layout when it's the 5th item: */
+        /* grid-column: 1 / 3; text-align: center; */
+    }
+}
+
+@media (max-width: 600px) { /* For mobile */
+    .team-grid {
+        grid-template-columns: 1fr; /* Single column */
+    }
+     .team-member.lone-member {
+        grid-column: auto; /* Reset for single column */
+        margin-top: 0; /* Reset top margin if not needed in single column */
+    }
+    .team-member {
+        text-align: center; /* Center text in single column view */
+    }
+}
+
+/* General Contact Section */
+.general-contact-section {
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+.general-contact-section p {
+    font-size: 1em;
+    line-height: 1.6;
+}
+/* In static/css/style.css */
+.page-specific-title {
+    font-size: 1.3em; /* Example size */
+    color: #333;    /* Example color */
+    margin-top: 15px; /* Space below the nav bar */
+    text-align: center; /* Or left, as you prefer */
+    font-weight: 600;
+}
+/* In static/css/style.css */
+
+/* ... other existing CSS rules ... */
+
+/* Tutorial Page Specific Styling */
+.tutorial-page .page-content h2 { /* Main tutorial title */
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+.tutorial-page .page-content h2 i {
+    margin-right: 10px;
+}
+
+.tutorial-intro {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    color: #555;
+    padding: 0 15px; /* Add some padding for better text flow */
+}
+.tutorial-intro strong {
+    color: #d9534f;
+}
+
+/* --- REVISED TUTORIAL STEP STYLING --- */
+.tutorial-step {
+    background-color: #ffffff;
+    border: 1px solid #e0e7ef;
+    border-left: 5px solid #007bff; /* Accent blue line on the left */
+    border-radius: 8px;
+    margin-bottom: 30px; /* Space between steps */
+    padding: 20px 25px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+    overflow: hidden; /* To contain floats if any, or for future complex layouts */
+}
+
+.step-number-container {
+    float: left; /* Float the number to the left */
+    margin-right: 20px; /* Space between number and content */
+    margin-bottom: 10px; /* Space below number if content wraps under it on very narrow screens */
+    line-height: 1; /* Align number better if it ever wraps */
+}
+
+.step-number {
+    background-color: #007bff;
+    color: white;
+    font-size: 1.3em; /* Make number slightly smaller if it was too big */
+    font-weight: bold;
+    width: 35px;   /* Fixed width for the circle */
+    height: 35px;  /* Fixed height for the circle */
+    line-height: 35px; /* Vertically center text in circle */
+    border-radius: 50%;
+    text-align: center;
+    display: inline-block;
+}
+
+.step-content {
+    overflow: hidden; /* This is important: it will make this div respect the floated .step-number-container */
+                      /* and not wrap around it in an undesired way. */
+}
+
+.step-content h3 {
+    font-size: 1.4em;
+    color: #0056b3;
+    margin-top: 0; /* Remove top margin if number is floated */
+    margin-bottom: 15px;
+    /* line-height: 35px; /* Optional: align with number circle if desired, adjust padding-top then */
+}
+
+.step-content p,
+.step-content ul,
+.step-content ol {
+    font-size: 1em;
+    line-height: 1.7;
+    color: #454545;
+    margin-bottom: 15px;
+}
+
+.step-content ul,
+.step-content ol {
+    padding-left: 25px; /* Indent lists */
+}
+.step-content ul li,
+.step-content ol li {
+    margin-bottom: 8px;
+}
+
+.step-content ul ul { /* Nested lists */
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.step-content h4 { /* For sub-headings within a step if you add them */
+    font-size: 1.15em;
+    color: #343a40;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.reference-link {
+    font-size: 0.9em; /* Make reference links slightly smaller */
+    color: #6c757d;
+    display: block;
+    margin-top: 10px; /* Space above reference link */
+}
+.reference-link a {
+    color: #0056b3;
+    text-decoration: none;
+}
+.reference-link a:hover {
+    text-decoration: underline;
+}
+
+.important-note {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffeeba;
+    padding: 10px 15px;
+    margin-top: 15px;
+    margin-bottom: 15px; /* Added margin below */
+    border-radius: 4px; /* Added border radius */
+    font-size: 0.95em; /* Slightly smaller font for notes */
+    color: #856400;
+}
+.important-note strong {
+    font-weight: bold;
+}
+
+.tutorial-disclaimer {
+    margin-top: 40px;
+}
+
+/* --- END OF REVISED TUTORIAL STEP STYLING --- */
+
+/* ... rest of your CSS file ... */
+
+.tutorial-step {
+    /* ... existing styles ... */
+    margin-bottom: 25px; /* Reduced from 40px or 30px if it was more */
+    /* ... existing styles ... */
+}
+
+/* NEW GRAD-CAM STYLING */
+.grad-cam-display {
+    flex: 1 1 100%; /* Take full width on a new line if wrapping */
+    margin-top: 20px; /* Add some space if it wraps */
+    text-align: center;
+}
+.grad-cam-display h3 {
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+.grad-cam-display img {
+    max-width: 100%;
+    height: auto;
+    max-height: 350px; /* Match original image display or adjust */
+    border: 3px solid #007bff; /* Blue border to distinguish */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 10px;
+}
+.interpretability-note {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Make result-content a flex container to place images side-by-side */
+.result-content {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    gap: 30px; /* Space between the images */
+    margin-bottom: 30px;
+    align-items: flex-start; /* Align tops of items */
+    justify-content: center; /* Center the items if space allows */
+}
+
+/* Updated style for image-display to work as a flex item */
+.image-display {
+    flex: 1; /* Each image container will take up equal space */
+    min-width: 300px; /* Minimum width before wrapping */
+    text-align: center;
+}
+
+/* Optional: specific styling for the grad-cam container */
+.gradcam-display h3 {
+    color: #0056b3; /* Match other titles */
+}
+
+.gradcam-note {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 10px;
+    padding: 0 10px;
+    font-style: italic;
+}
+
+/* Wrapper for the prediction details to center them below the images */
+.prediction-details-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.prediction-details {
+    flex-basis: 700px; /* Max width for the details box */
+    max-width: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* In static/css/style.css */
+/* Add these new rules */
+
+/* Special layout for single image display when result is unconfident */
+.single-image-layout {
+    justify-content: center; /* Center the single image container */
+}
+.single-image-layout .image-display {
+    flex-grow: 0; /* Don't allow it to grow */
+    flex-basis: 500px; /* Give it a reasonable max-width */
+}
+
+/* Styling for the unconfident result box */
+.unconfident-result {
+    border-left: 5px solid #ffc107; /* A warning yellow color */
+}
+
+.highlight-unknown {
+    font-weight: bold;
+    color: #dc3545; /* A warning red color */
+}
+
+/* REPLACEMENT OPTION 1: Informational Blue */
+.unconfident-note {
+    font-size: 1.05em;
+    line-height: 1.6;
+    background-color: #e7f3fe; /* Very light blue background */
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #cce5ff; /* Light blue border */
+    color: #004085; /* Dark blue text for good contrast */
+}
+
+/* In static/css/style.css, add these new rules (or modify existing ones) */
+
+/* ... other existing styles ... */
+
+/* UPDATED STYLES FOR RESULT PAGE */
+
+/* Replace .highlight with more specific classes */
+.highlight-confident {
+    font-weight: bold;
+    color: #28a745; /* Green for confident prediction */
+}
+
+.highlight-unknown {
+    font-weight: bold;
+    color: #ffc107; /* Amber/Yellow for unknown/unconfident */
+}
+
+.threshold-info {
+    font-size: 0.9em;
+    padding: 10px;
+    margin-top: -10px; /* Pull it up a bit closer to the confidence score */
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+
+.threshold-info.confident {
+    background-color: #e9f5ec; /* Light green background */
+    border-left-color: #28a745;
+    color: #155724;
+}
+
+.threshold-info.unconfident {
+    background-color: #fff8e1; /* Light yellow background */
+    border-left-color: #ffc107;
+    color: #856404;
+}
+
+.threshold-info p {
+    margin: 0;
+}
+.threshold-info strong {
+    font-weight: 700;
+}
+.threshold-info em {
+    font-style: italic;
+}
+
+/* Optional: Adjust spacing for Grad-CAM image if it exists */
+.image-display h3 {
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+.image-display img {
+    margin-bottom: 20px; /* Add space between uploaded image and grad-cam */
+}

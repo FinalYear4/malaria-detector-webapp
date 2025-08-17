@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Malaria Species</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+             <div class="logo-and-nav">
+                <a href="{{ url_for('index') }}" class="header-logo-link">
+                    <h1><i class="fas fa-microscope"></i> Malaria Species Detector</h1>
+                </a>
+                <nav class="main-nav">
+                    <a href="{{ url_for('index') }}" class="nav-button">Home</a>
+                    <a href="{{ url_for('tutorials_page') }}" class="nav-button">Tutorials</a>
+                    <a href="{{ url_for('faq_page') }}" class="nav-button">FAQ</a>
+                    <a href="{{ url_for('contact_page') }}" class="nav-button">Contact</a>
+                </nav>
+            </div>
+            <h3 class="page-specific-title">Analysis Result for: {{ filename }}</h3>
+        </header>
+
+        <div class="result-content">
+            <div class="image-display">
+                <h3>Uploaded Image</h3>
+                <img src="data:image/jpeg;base64,{{ image_data }}" alt="Uploaded Blood Smear Image">
+                {% if grad_cam_image_data %}
+                    <h3>Grad-CAM Interpretability</h3>
+                    <img src="data:image/jpeg;base64,{{ grad_cam_image_data }}" alt="Grad-CAM Overlay">
+                {% endif %}
+            </div>
+
+            <div class="prediction-details">
+                <!-- UPDATED PREDICTION DISPLAY -->
+                {% if is_unconfident %}
+                    <h2><i class="fas fa-question-circle" style="color: #ffc107;"></i> Predicted Species: <span class="highlight-unknown">{{ predicted_class }}</span></h2>
+                    <p class="confidence">
+                        Confidence Score: <span class="highlight-unknown">{{ confidence }}</span>
+                    </p>
+                    <div class="threshold-info unconfident">
+                        <p>The model's confidence of <strong>{{ confidence }}</strong> did not meet the required threshold of <strong>{{ threshold }}</strong> for its top guess. Therefore, the result is flagged as uncertain.</p>
+                    </div>
+                {% else %}
+                    <h2><i class="fas fa-check-circle" style="color: #28a745;"></i> Predicted Species: <span class="highlight-confident">{{ predicted_class }}</span></h2>
+                    <p class="confidence">
+                        Confidence Score: <span class="highlight-confident">{{ confidence }}</span>
+                    </p>
+                    <div class="threshold-info confident">
+                        <p>This meets the required confidence threshold of <strong>{{ threshold }}</strong> for the <em>{{ predicted_class }}</em> class.</p>
+                    </div>
+                {% endif %}
+                <!-- END OF UPDATED DISPLAY -->
+
+                <h3><i class="fas fa-chart-bar"></i> Class Probabilities:</h3>
+                <ul class="probabilities-list">
+                    {% for class_name, prob in all_probs.items() %}
+                        <li><strong>{{ class_name }}:</strong> {{ prob }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('index') }}" class="button-like back-button"><i class="fas fa-arrow-left"></i> Analyze Another Image</a>
+        </div>
+
+        <div class="disclaimer">
+            <h2><i class="fas fa-exclamation-triangle"></i> Important Disclaimer (Reminder)</h2>
+            <p>This tool is for informational and research purposes only and is NOT a substitute for professional medical diagnosis.
+            Consult a qualified healthcare provider for any medical concerns.</p>
+        </div>
+
+         <footer>
+            <p>© 2025 Deep Learning Model For Plasmodium Specie Detection. For educational and research use.</p>
+        </footer>
+    </div>
+</body>
+</html>

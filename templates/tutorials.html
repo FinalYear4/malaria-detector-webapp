@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - Malaria Species Predictor</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <div class="logo-and-nav">
+                 <a href="{{ url_for('index') }}" class="header-logo-link">
+                    <h1><i class="fas fa-microscope"></i> Malaria Species Detector</h1>
+                </a>
+                <nav class="main-nav">
+                    <a href="{{ url_for('index') }}" class="nav-button">Home</a>
+                    <a href="{{ url_for('tutorials_page') }}" class="nav-button active">Tutorials</a>
+                    <a href="{{ url_for('faq_page') }}" class="nav-button">FAQ</a>
+                    <a href="{{ url_for('contact_page') }}" class="nav-button">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="page-content tutorial-page">
+            <h2><i class="fas fa-book-reader"></i> Quick Guide: Using the Malaria Species Detector</h2>
+            <p class="tutorial-intro">
+                Follow these simple steps to analyze your blood smear images.
+                
+            </p>
+
+            <div class="tutorial-step">
+                <div class="step-number-container"><span class="step-number">1</span></div>
+                <div class="step-content">
+                    <h3>Prepare Your Image</h3>
+                    <p>Ensure you have a clear, well-focused digital image of a Giemsa-stained thin blood smear.
+                        The image should primarily show red blood cells and any suspected parasites.
+                        Supported formats: JPG, JPEG, PNG.
+                    </p>
+                    <p class="reference-link">For detailed smear preparation, see:
+                        <a href="https://www.cdc.gov/dpdx/diagnosticprocedures/blood/specimenproc.html" target="_blank" rel="noopener noreferrer">CDC Guidelines</a>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tutorial-step">
+                <div class="step-number-container"><span class="step-number">2</span></div>
+                <div class="step-content">
+                    <h3>Upload to the Tool</h3>
+                    <ol>
+                        <li>Go to the <a href="{{ url_for('index') }}"><strong>Home</strong></a> page.</li>
+                        <li>Click the "<strong><i class="fas fa-cloud-upload-alt"></i> Choose Image</strong>" button.</li>
+                        <li>Select your prepared image file from your computer.</li>
+                        <li>Click the "<strong>Analyze Image</strong>" button.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tutorial-step">
+                <div class="step-number-container"><span class="step-number">3</span></div>
+                <div class="step-content">
+                    <h3>Review Prediction</h3>
+                    <p>The results page will show:</p>
+                    <ul>
+                        <li>Your uploaded image.</li>
+                        <li><strong>Predicted Species:</strong> The model's top guess (e.g., Falciparum, Malariae, Ovale).</li>
+                        <li><strong>Confidence Score:</strong> How sure the model is about its top guess (0-100%). A higher score indicates more certainty from the model's perspective.</li>
+                        <li><strong>Class Probabilities:</strong> The deep learning model's confidence for each possible species.</li>
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="tutorial-step">
+                <div class="step-number-container"><span class="step-number">4</span></div>
+                <div class="step-content">
+                    <h3>Important Considerations</h3>
+                    <ul>
+                        <li><strong>Image Quality:</strong> Poor quality images (blurry, bad staining, debris) will lead to unreliable predictions.</li>
+                        <li><strong>Purpose:</strong> This tool assists in potential species identification for research or education. It is <strong>NOT</strong> a diagnostic tool.</li>
+                        <li><strong>Limitations:</strong> The deep learning model is trained on specific data and may not recognize all parasite variations or co-infections perfectly.</li>
+                    </ul>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <footer>
+            <p>© 2025 Deep Learning Model For Plasmodium Specie Detection. For educational and research use.</p>
+        </footer>
+    </div>
+</body>
+</html>

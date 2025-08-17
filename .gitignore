@@ -1,0 +1,13 @@
+# Virtual Environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Large model files
+*.pth
+
+# IDE files
+.idea/
+.vscode/

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Citation - Malaria Species Predictor</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+         <header class="page-header">
+            <div class="logo-and-nav">
+                <a href="{{ url_for('index') }}" class="header-logo-link">
+                    <h1><i class="fas fa-microscope"></i> Malaria Species Detector</h1>
+                </a>
+                <nav class="main-nav">
+                    <a href="{{ url_for('index') }}" class="nav-button">Home</a>
+                    <a href="{{ url_for('tutorials_page') }}" class="nav-button">Tutorials</a>
+                    <a href="{{ url_for('faq_page') }}" class="nav-button">FAQ</a>
+                    <a href="{{ url_for('contact_page') }}" class="nav-button active">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="page-content contact-page-layout">
+            <section class="citation-section">
+                <h2><i class="fas fa-quote-right"></i> Citation</h2>
+                <p>
+                    Dugbatey Emmanuel Kofi, Efua Kusiwa Aboagye, Wisdom Abuyah Osborn, Delores Nkrumah, Alangtura Marius Alebna,
+                    Claude Fiifi Hayford, Samuel K. Kwofie.
+                    
+                    <br>
+                    <!-- Replace with your actual project title or description if preferred over a direct link like this -->
+                    <em></em>
+                    <br>
+                    
+                    
+                </p>
+            </section>
+
+            <section class="team-section">
+                <h2><i class="fas fa-users"></i> Research Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <h3>Principal Investigator</h3>
+                        <p class="member-name">Samuel Kojo Kwofie, PhD</p>
+                        <p class="member-email"><a href="mailto:skkwofie@ug.edu.gh">skkwofie@ug.edu.gh</a></p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Co-Principal Investigator</h3>
+                        <p class="member-name">Claude Fiifi Hayford, PhD</p>
+                        <p class="member-email"><a href="mailto:CHayford@ug.edu.gh">CHayford@ug.edu.gh</a></p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Co-developer</h3>
+                        <p class="member-name">Dugbatey Emmanuel Kofi</p>
+                        <p class="member-email"><a href="mailto:dugbateykofiemmanuel@gmail.com">dugbateykofiemmanuel@gmail.com</a></p> <!-- Corrected email from image -->
+                    </div>
+                    <div class="team-member">
+                        <h3>Co-developer</h3>
+                        <p class="member-name">Efua Kusiwa Aboagye</p>
+                        <p class="member-email"><a href="mailto:efuakusiwa@gmail.com">efuakusiwa@gmail.com</a></p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Co-developer</h3>
+                        <p class="member-name">Wisdom Abuyah Osborn</p>
+                        <p class="member-email"><a href="mailto:woabuyah@st.ug.edu.gh">woabuyah@st.ug.edu.gh</a></p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Co-developer</h3>
+                        <p class="member-name">Alangtura Marius Alebna</p>
+                        <p class="member-email"><a href="mailto:malangtura@gmail.com">malangtura@gmail.com</a></p>
+                    </div>
+                    <div class="team-member lone-member"> <!-- Added class for special styling if needed for the last one -->
+                        <h3>Co-developer</h3>
+                        <p class="member-name">Delores Nkrumah</p>
+                        <p class="member-email"><a href="mailto:dnkrumah016@st.ug.edu.gh">dnkrumah016@st.ug.edu.gh</a></p>
+                    </div>
+
+                </div>
+            </section>
+            <section class="general-contact-section">
+                 <h2><i class="fas fa-envelope"></i> General Inquiries</h2>
+                 <p>For general inquiries or technical issues with this tool, you can reach out to the principal investigator or the development team via the emails listed above.</p>
+                 <p>Please note that this tool is for research and educational purposes and cannot provide medical advice.</p>
+            </section>
+        </div>
+
+        <footer>
+            <p>© 2025 Deep Learning Model For Plasmodium Specie Detection. For educational and research use.</p>
+        </footer>
+    </div>
+</body>
+</html>

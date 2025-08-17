@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Malaria Species Predictor</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <div class="logo-and-nav">
+                <a href="{{ url_for('index') }}" class="header-logo-link">
+                    <h1><i class="fas fa-microscope"></i> Malaria Species Detector</h1>
+                </a>
+                <nav class="main-nav">
+                    <a href="{{ url_for('index') }}" class="nav-button">Home</a>
+                    <a href="{{ url_for('tutorials_page') }}" class="nav-button">Tutorials</a>
+                    <a href="{{ url_for('faq_page') }}" class="nav-button active">FAQ</a> <!-- Mark as active -->
+                    <a href="{{ url_for('contact_page') }}" class="nav-button">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="faq-section page-content"> <!-- Added page-content class -->
+            <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+            <!-- Paste your FAQ items from index.html here -->
+            <div class="faq-item">
+                <h3 class="faq-question">What is this tool?</h3>
+                <p class="faq-answer">
+                    This is an AI-powered web application designed to assist in identifying different species of malaria parasites (specifically Falciparum, Malariae, and Ovale) from uploaded microscopic images of blood smears. It uses a deep learning model for prediction.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">What malaria parasite species can this tool attempt to identify?</h3>
+                <p class="faq-answer">
+                    The current model is trained to differentiate between three common human malaria parasite species: <em>Plasmodium falciparum</em>, <em>Plasmodium malariae</em>, and <em>Plasmodium ovale</em>. It will attempt to classify an uploaded image into one of these three categories.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How accurate is this tool?</h3>
+                <p class="faq-answer">
+                    The model achieved approximately 90% accuracy on its test dataset during development. However, deep learning model accuracy can vary depending on image quality, the specific characteristics of the parasite in the image, and other factors. Please refer to the "Important Disclaimer" on this page; this tool is for informational and research purposes only and its accuracy is not guaranteed in all scenarios.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is this tool a substitute for professional medical diagnosis?</h3>
+                <p class="faq-answer">
+                    <strong>Absolutely NOT.</strong> This tool is intended for educational and research exploration. It is NOT a diagnostic tool and should NEVER be used to make medical decisions. Always consult a qualified healthcare professional or a trained microscopist for accurate malaria diagnosis and treatment advice.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">What kind of images should I upload for the best results?</h3>
+                <p class="faq-answer">
+                    For optimal performance, please upload clear, well-focused microscopic images of Giemsa-stained thin blood smears. The image should ideally contain visible malaria parasites. The model was trained on images of a specific size (384x384 pixels), and while it preprocesses uploads, images that are drastically different in quality or composition might yield less reliable results.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How does the AI model work?</h3>
+                <p class="faq-answer">
+                    This application uses a deep learning model, specifically a convolutional neural network (CNN) with an EfficientNet-B4 encoder. The encoder was pre-trained on a segmentation task and then fine-tuned for this multi-class classification task to identify parasite species.
+                </p>
+            </div>
+            <!-- Add more FAQ items if needed -->
+        </div>
+
+        <footer>
+            <p>© 2025 Deep Learning Model For Plasmodium Species Detection. For educational and research use.</p>
+        </footer>
+    </div>
+</body>
+</html>
